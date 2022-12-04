@@ -17,9 +17,12 @@ export const EditPost = () => {
   useEffect(() => {
     const getSinglePost = async () => {
       try {
-        const response = await axios.get(`/api/v1/posts/${postId}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const response = await axios.get(
+          `${process.env.process.env.REACT_APP_API_URL}/posts/${postId}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         setValues(response.data);
         setIsLoading(false);
       } catch (error) {}

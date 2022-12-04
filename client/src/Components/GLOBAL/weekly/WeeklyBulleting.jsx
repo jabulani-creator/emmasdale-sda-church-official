@@ -15,9 +15,12 @@ export const WeeklyBulleting = () => {
   useEffect(() => {
     const getBulleting = async () => {
       try {
-        const response = await axios.get(`/api/v1/pdf/`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const response = await axios.get(
+          `${process.env.process.env.REACT_APP_API_URL}/pdf/`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         setBulleting(response.data);
         setIsLoading(false);
       } catch (error) {}

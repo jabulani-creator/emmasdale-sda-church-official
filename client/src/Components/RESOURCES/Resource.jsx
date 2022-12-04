@@ -15,9 +15,12 @@ export const Resource = () => {
   useEffect(() => {
     const getManual = async () => {
       try {
-        const response = await axios.get(`/api/v1/resource/${manualId}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const response = await axios.get(
+          `${process.env.process.env.REACT_APP_API_URL}/resource/${manualId}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         setManual(response.data);
         setIsLoading(false);
       } catch (error) {}

@@ -21,9 +21,12 @@ export const EditEvent = () => {
   useEffect(() => {
     const getSingleEvent = async () => {
       try {
-        const response = await axios.get(`/api/v1/events/${eventId}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const response = await axios.get(
+          `${process.env.process.env.REACT_APP_API_URL}/events/${eventId}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         setValues(response.data);
         setIsLoading(false);
       } catch (error) {}

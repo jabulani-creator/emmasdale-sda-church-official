@@ -15,9 +15,12 @@ export const SinglePost = () => {
   useEffect(() => {
     const getSinglePost = async () => {
       try {
-        const response = await axios.get(`/api/v1/posts/${postId}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const response = await axios.get(
+          `${process.env.process.env.REACT_APP_API_URL}/posts/${postId}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         setPost(response.data);
         setIsLoading(false);
       } catch (error) {}

@@ -171,7 +171,7 @@ const AppProvider = ({ children }) => {
     setIsSubmenuOpen(false);
   };
   const authFetch = axios.create({
-    baseURL: "/api/v1",
+    baseURL: process.env.REACT_APP_API_URL,
   });
 
   //request
@@ -238,7 +238,10 @@ const AppProvider = ({ children }) => {
   const registerUser = async (currentUser) => {
     dispatch({ type: REGISTER_USER_BEGIN });
     try {
-      const response = await axios.post("/api/v1/auth/register", currentUser);
+      const response = await axios.post(
+        `${process.env.process.env.REACT_APP_API_URL}/auth/register`,
+        currentUser
+      );
       const { user, token, position } = response.data;
       dispatch({
         type: REGISTER_USER_SUCCESS,
@@ -260,7 +263,10 @@ const AppProvider = ({ children }) => {
   const loginUser = async (currentUser) => {
     dispatch({ type: LOGIN_USER_BEGIN });
     try {
-      const { data } = await axios.post("/api/v1/auth/login", currentUser);
+      const { data } = await axios.post(
+        `${process.env.process.env.REACT_APP_API_URL}/auth/login`,
+        currentUser
+      );
       const { user, token, position } = data;
 
       dispatch({
@@ -324,7 +330,7 @@ const AppProvider = ({ children }) => {
 
   const getPosts = async () => {
     const { page, search, sort } = state;
-    let url = `/api/v1/posts?page=${page}&sort=${sort}`;
+    let url = `${process.env.process.env.REACT_APP_API_URL}/posts?page=${page}&sort=${sort}`;
     if (search) {
       url = url + `&search=${search}`;
     }
@@ -395,7 +401,7 @@ const AppProvider = ({ children }) => {
 
   const getHealthPost = async () => {
     const { search, sort, page } = state;
-    let url = `/api/v1/health?page=${page}&sort=${sort}`;
+    let url = `${process.env.process.env.REACT_APP_API_URL}/health?page=${page}&sort=${sort}`;
     if (search) {
       url = url + `&search=${search}`;
     }
@@ -470,7 +476,7 @@ const AppProvider = ({ children }) => {
   };
 
   const getEvents = async () => {
-    let url = `/api/v1/events`;
+    let url = `${process.env.process.env.REACT_APP_API_URL}/events`;
     dispatch({ type: GET_EVENTS_BEGIN });
 
     try {
@@ -531,7 +537,7 @@ const AppProvider = ({ children }) => {
     try {
       const { name, date, phone, purpose, email, message } = state;
 
-      await axios.post("/api/v1/contact", {
+      await axios.post("${process.env.process.env.REACT_APP_API_URL}/contact", {
         name,
         date,
         phone,
@@ -552,7 +558,7 @@ const AppProvider = ({ children }) => {
 
   const getRequests = async () => {
     const { searchPurpose, page, sort } = state;
-    let url = `/contact?page=${page}&purpose=${searchPurpose}&sort=${sort}`;
+    let url = `${process.env.process.env.REACT_APP_API_URL}/contact?page=${page}&purpose=${searchPurpose}&sort=${sort}`;
 
     dispatch({ type: GET_REQUEST_BEGIN });
 
@@ -606,7 +612,9 @@ const AppProvider = ({ children }) => {
   const getPositions = async () => {
     dispatch({ type: GET_POSITION_BEGIN });
     try {
-      const { data } = await axios.get("/api/v1/position");
+      const { data } = await axios.get(
+        `${process.env.process.env.REACT_APP_API_URL}/position`
+      );
       const { leaders } = data;
       dispatch({
         type: GET_POSITION_SUCCESS,
@@ -620,7 +628,10 @@ const AppProvider = ({ children }) => {
   const createReview = async (review) => {
     dispatch({ type: CREATE_REVIEW_BEGIN });
     try {
-      await axios.post("/api/v1/review", review);
+      await axios.post(
+        `${process.env.process.env.REACT_APP_API_URL}/review`,
+        review
+      );
       dispatch({ type: CREATE_REVIEW_SUCCESS });
       dispatch({ type: CLEAR_VALUES });
     } catch (error) {
@@ -635,7 +646,9 @@ const AppProvider = ({ children }) => {
   const getReviews = async () => {
     dispatch({ type: GET_REVIEW_BEGIN });
     try {
-      const { data } = await axios.get("/api/v1/review");
+      const { data } = await axios.get(
+        `${process.env.process.env.REACT_APP_API_URL}/review`
+      );
       const { reviews } = data;
       dispatch({
         type: GET_REVIEW_SUCCESS,
@@ -664,7 +677,9 @@ const AppProvider = ({ children }) => {
   const getPastors = async () => {
     dispatch({ type: GET_PASTOR_BEGIN });
     try {
-      const { data } = await axios.get("/api/v1/pastor");
+      const { data } = await axios.get(
+        `${process.env.process.env.REACT_APP_API_URL}/pastor`
+      );
       const { pastors } = data;
 
       dispatch({ type: GET_PASTOR_SUCCESS, payload: { pastors } });
@@ -691,7 +706,9 @@ const AppProvider = ({ children }) => {
   const getWorkers = async () => {
     dispatch({ type: GET_WORKER_BEGIN });
     try {
-      const { data } = await axios.get("/api/v1/worker");
+      const { data } = await axios.get(
+        `${process.env.process.env.REACT_APP_API_URL}/worker`
+      );
       const { workers } = data;
       dispatch({ type: GET_WORKER_SUCCESS, payload: { workers } });
     } catch (error) {}
@@ -717,7 +734,9 @@ const AppProvider = ({ children }) => {
   const getElders = async () => {
     dispatch({ type: GET_ELDER_BEGIN });
     try {
-      const { data } = await axios.get("/api/v1/elder");
+      const { data } = await axios.get(
+        `${process.env.process.env.REACT_APP_API_URL}/elder`
+      );
       const { elders } = data;
       dispatch({ type: GET_ELDER_SUCCESS, payload: { elders } });
     } catch (error) {}
@@ -741,7 +760,7 @@ const AppProvider = ({ children }) => {
   const getPhotos = async () => {
     const { page, search, searchDepartment } = state;
 
-    let url = `/api/v1/image?page=${page}&department=${searchDepartment}`;
+    let url = `${process.env.process.env.REACT_APP_API_URL}/image?page=${page}&department=${searchDepartment}`;
     if (search) {
       url = url + `&search=${search}`;
     }
@@ -782,7 +801,7 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
   const getResources = async () => {
-    let url = `/api/v1/resource`;
+    let url = `${process.env.process.env.REACT_APP_API_URL}/resource`;
 
     dispatch({ type: GET_RESOURCE_BEGIN });
     try {

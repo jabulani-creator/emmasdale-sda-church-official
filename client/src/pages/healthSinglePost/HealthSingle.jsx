@@ -15,9 +15,12 @@ export const HealthSingle = () => {
   useEffect(() => {
     const getSingleHealth = async () => {
       try {
-        const response = await axios.get(`/api/v1/health/${healthId}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const response = await axios.get(
+          `${process.env.process.env.REACT_APP_API_URL}/health/${healthId}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         setHealth(response.data);
         setIsLoading(false);
       } catch (error) {}
