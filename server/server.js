@@ -3,6 +3,7 @@ import { dirname } from "path";
 import express from "express";
 const app = express();
 import dotenv from "dotenv";
+import cors from "cors";
 dotenv.config();
 import { fileURLToPath } from "url";
 
@@ -44,6 +45,7 @@ if (process.env.NODE_ENV !== "production") {
   app.use(morgan("dev"));
 }
 app.use(express.json());
+app.use(cors());
 
 app.use(express.static("./public"));
 
